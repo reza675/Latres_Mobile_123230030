@@ -18,7 +18,10 @@ class DetailPageView extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Get.back(),
         ),
-        title: const Text('Detail', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Detail',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -102,7 +105,21 @@ class DetailPageView extends StatelessWidget {
                       child: SizedBox(
                         height: 44,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.snackbar(
+                              'Memutar Film',
+                              'Selamat menonton ${controller.title}!',
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: const Color(0xFFE53C30),
+                              colorText: Colors.white,
+                              icon: const Icon(
+                                Icons.play_circle_fill,
+                                color: Colors.white,
+                              ),
+                              margin: const EdgeInsets.all(10),
+                              duration: const Duration(seconds: 2),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFE53C30),
                             foregroundColor: Colors.white,

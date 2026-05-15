@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../service/api_service.dart';
@@ -60,6 +59,15 @@ class DetailController extends GetxController {
 
     if (_box.containsKey(showId)) {
       _box.delete(showId);
+      Get.snackbar(
+        'Favorit Dihapus',
+        '$title telah dihapus dari daftar favorit',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(10),
+        duration: const Duration(seconds: 2),
+      );
     } else {
       _box.put(showId, {
         'id': showId,
@@ -69,6 +77,15 @@ class DetailController extends GetxController {
         'genre': genresText,
         'rating': rating,
       });
+      Get.snackbar(
+        'Favorit Ditambah',
+        '$title berhasil disimpan ke favorit',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.8),
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(10),
+        duration: const Duration(seconds: 2),
+      );
     }
     _syncFavoriteState();
   }

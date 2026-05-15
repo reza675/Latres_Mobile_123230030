@@ -114,7 +114,7 @@ class FavoritePageView extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            onPressed: () => controller.deleteById(id),
+                            onPressed: () => controller.deleteById(id, title),
                             icon: const Icon(
                               Icons.delete,
                               color: Color(0xFFE53C30),

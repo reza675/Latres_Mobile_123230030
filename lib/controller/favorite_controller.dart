@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -26,8 +25,17 @@ class FavoriteController extends GetxController {
     super.onClose();
   }
 
-  void deleteById(String id) {
+  void deleteById(String id, String title) {
     _box.delete(id);
+    Get.snackbar(
+      'Favorit Dihapus',
+      'Film dengan $id bernama $title telah dihapus dari daftar favorit',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.red.withOpacity(0.8),
+      colorText: Colors.white,
+      margin: const EdgeInsets.all(10),
+      duration: const Duration(seconds: 2),
+    );
   }
 
   void _syncItems() {
