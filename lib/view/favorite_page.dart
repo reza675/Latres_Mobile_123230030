@@ -50,77 +50,96 @@ class FavoritePageView extends StatelessWidget {
                     final rating = (item['rating'] ?? '-').toString();
                     final imageUrl = (item['imageUrl'] ?? '').toString();
 
-                    return Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1A1A1A),
+                    return Material(
+                      color: const Color(0xFF1A1A1A),
+                      borderRadius: BorderRadius.circular(12),
+                      child: InkWell(
                         borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: imageUrl.isEmpty
-                                ? Container(
-                                    width: 48,
-                                    height: 64,
-                                    color: const Color(0xFF2A2A2A),
-                                    child: const Icon(
-                                      Icons.image_not_supported,
-                                      color: Colors.grey,
-                                      size: 18,
-                                    ),
-                                  )
-                                : Image.network(
-                                    imageUrl,
-                                    width: 48,
-                                    height: 64,
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  title,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const SizedBox(height: 6),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.star,
-                                      size: 14,
-                                      color: Colors.amber,
-                                    ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      rating,
-                                      style: TextStyle(
-                                        color: Colors.grey.shade300,
-                                        fontSize: 12,
+                        onTap: () {
+                          final showId = int.tryParse(id);
+                          if (showId == null) {
+                            Get.snackbar(
+                              'Tidak bisa buka detail',
+                              'ID film tidak valid',
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: const Color(0xFFE53C30),
+                              colorText: Colors.white,
+                              margin: const EdgeInsets.all(10),
+                              duration: const Duration(seconds: 2),
+                            );
+                            return;
+                          }
+                          Get.toNamed(AppRoutes.detail, arguments: showId);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: imageUrl.isEmpty
+                                    ? Container(
+                                        width: 48,
+                                        height: 64,
+                                        color: const Color(0xFF2A2A2A),
+                                        child: const Icon(
+                                          Icons.image_not_supported,
+                                          color: Colors.grey,
+                                          size: 18,
+                                        ),
+                                      )
+                                    : Image.network(
+                                        imageUrl,
+                                        width: 48,
+                                        height: 64,
+                                        fit: BoxFit.cover,
                                       ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      title,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.star,
+                                          size: 14,
+                                          color: Colors.amber,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          rating,
+                                          style: TextStyle(
+                                            color: Colors.grey.shade300,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              IconButton(
+                                onPressed: () => controller.deleteById(id, title),
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Color(0xFFE53C30),
+                                ),
+                              ),
+                            ],
                           ),
-                          IconButton(
-                            onPressed: () => controller.deleteById(id, title),
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Color(0xFFE53C30),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     );
                   },

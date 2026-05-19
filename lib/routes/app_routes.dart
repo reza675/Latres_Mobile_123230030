@@ -4,4 +4,4 @@ abstract class AppRoutes {
   static const String detail = '/detail';
   static const String favorite = '/favorite';
   static const String profile = '/profile';
-} 
+}   
