@@ -34,7 +34,8 @@ class LoginController extends GetxController {
         'Error',
         'Username dan password harus diisi!',
         snackPosition: SnackPosition.BOTTOM,
-        colorText: null,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
       );
       return;
     }
@@ -49,6 +50,8 @@ class LoginController extends GetxController {
         'Error',
         'Username atau password salah!',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
       );
     }
   }
